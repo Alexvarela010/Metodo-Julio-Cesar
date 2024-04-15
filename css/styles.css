@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    justify-content: space-between; /* Para distribuir los elementos horizontalmente */
+    padding: 70px; /* Añadimos espacio alrededor de los elementos */
+}
+
+.card-container {
+    width: 60%;
+    margin-right: 20px; /* Espacio entre la tarjeta y el formulario */
+}
+
+.card {
+    width: 100%;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto; /* Para que la imagen mantenga su aspecto original */
+}
+
+.form {
+    font-size: 20px;
+    width: 40%;
+}
+.form-control{
+    font-size: 20px;
+    
+}
+.form label {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Cambiar a disposición de columna en dispositivos pequeños */
+    }
+    .card-container {
+        width: 100%;
+        margin-bottom: 20px; /* Espacio entre la tarjeta y el formulario en dispositivos pequeños */
+        margin-right: 0; /* Eliminar el margen derecho en dispositivos pequeños */
+    }
+    .form {
+        width: 100%;
+    }
+}
+.maquina-escribir {
+    font-size: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-family: monospace;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 320px;
+    width: 100%;
+}
