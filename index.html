@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo Julio Cesar</title>
+    <script src="js/Metodo_cifrado.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card-container" style="padding-right: 20px;">
+            <div class="card">
+                <img class="card-img-top"
+                    src="https://pymstatic.com/61302/conversions/julio-cesar-wide_webp.webp" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Metodo Julio Cesar</h5>
+                    <p class="card-text">¿Has oído hablar alguna vez del Código César? Es el algoritmo de cifrado más antiguo, es un tipo de cifrado de sustitución simple. Consiste en reemplazar una letra en el texto original por otra letra que se encuentra en un número fijo de posiciones más adelante en el alfabeto. Por ejemplo, usando un desplazamiento de 4 posiciones, la letra “A” se reemplazaría por la “E”, la letra “B” por la “F”, y así sucesivamente. Es una forma bastante eficaz de proteger tu información. Hoy en día, con la cantidad de ciberataques que existen, es importante tener conocimientos básicos de cifrado. 
+                        <a href="https://cibertrs.com/codigo-cesar-cifrado-sencillo-pero-eficaz/">Leer mas...</a> <br> Integrantes: <br>-Alex Varela<br>-Santiago Hernandez</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="form" style="padding-left: 20px;">
+            <div id="respuesta-container" class="maquina-escribir" >
+                Mensaje cifrado/descifrado aquí
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="mensaje">Ingrese el mensaje</label>
+                    <input type="text" id="mensaje" onkeypress="filtro(event, 'caracteres')" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="clave_cifrado1">Ingrese la clave de cifrado</label>
+                    <input type="number" max="25" min="1" onkeypress="filtro(event, 'numeros')" class="form-control"
+                        id="clave_cifrado1">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="accion" id="inlineRadio1" value="cifrar">
+                        <label class="form-check-label" for="inlineRadio1">Cifrar</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="accion" id="inlineRadio2" value="descifrar">
+                        <label class="form-check-label" for="inlineRadio2">Descifrar</label>
+                    </div>
+                </div>
+                <button type="button" onclick="enviarAccion()" class="btn btn-primary"
+                    style="background-color: rgb(50, 88, 255); font-size: 23px; width: 200px;">Procesar</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
