@@ -1,16 +1,31 @@
 function enviarAccion() {
+    var clave=0;
     var radios = document.getElementsByName('accion');
     var mensaje = document.getElementById("mensaje").value;
-
+    clave = document.getElementById("clave_cifrado1").value;
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
             var accion = radios[i].value;
-            var clave = document.getElementById("clave_cifrado1").value;
-            cifrarDescifrar(mensaje, accion, clave);
             break;
         }
     }
+    if(mensaje.length===0){
+        Swal.fire({
+            title: 'Completa el campo del mensaje',
+            icon: 'warning'
+          })
+    }else if(clave<1||clave>25){
+        Swal.fire({
+            title: 'Recuerda ingresar la clave de cifrado',
+            text: 'La clave de cifrado debe ser mayor a 1 y menor a 25',
+            icon: 'warning'
+          })
+    }else{
+        cifrarDescifrar(mensaje, accion, clave);
+    }
+
 }
+
 function cifrarDescifrar(mensaje, accion, clave) {
     var clave = document.getElementById("clave_cifrado1").value;
     if (clave < 26 && clave > 0) {
