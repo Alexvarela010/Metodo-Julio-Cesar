@@ -1,7 +1,12 @@
+html,body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
 .container {
     display: flex;
     justify-content: space-between; /* Para distribuir los elementos horizontalmente */
-    padding: 70px; /* Añadimos espacio alrededor de los elementos */
+    padding: 30px; /* Añadimos espacio alrededor de los elementos */
 }
 
 .card-container {
@@ -50,8 +55,9 @@
     border: 1px solid #ccc;
     padding: 10px;
     font-family: monospace;
-    overflow: hidden;
-    white-space: nowrap;
+    overflow: auto; 
     height: 320px;
     width: 100%;
+    position: relative;
+    border-radius: .25rem;
 }

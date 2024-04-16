@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <div class="card-container">
+        <div class="card-container" style="padding-right: 20px;">
             <div class="card">
                 <img class="card-img-top"
                     src="https://pymstatic.com/61302/conversions/julio-cesar-wide_webp.webp" alt="Card image cap">
@@ -25,8 +25,10 @@
                 </div>
             </div>
         </div>
-        <div class="form">
-            <div id="respuesta-container" class="maquina-escribir"></div>
+        <div class="form" style="padding-left: 20px;">
+            <div id="respuesta-container" class="maquina-escribir" >
+                Mensaje cifrado/descifrado aquí
+            </div>
             <form>
                 <div class="form-group">
                     <label for="mensaje">Ingrese el mensaje</label>
@@ -46,7 +48,7 @@
                     </div>
                 </div>
                 <button type="button" onclick="enviarAccion()" class="btn btn-primary"
-                    style="background-color: green; font-size: 23px; width: 200px;">Enviar</button>
+                    style="background-color: rgb(50, 88, 255); font-size: 23px; width: 200px;">Procesar</button>
             </form>
         </div>
     </div>
