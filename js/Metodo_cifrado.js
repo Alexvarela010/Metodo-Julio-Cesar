@@ -1,5 +1,5 @@
 function enviarAccion() {
-    var clave=0;
+    var clave = 0;
     var radios = document.getElementsByName('accion');
     var mensaje = document.getElementById("mensaje").value;
     clave = document.getElementById("clave_cifrado1").value;
@@ -9,18 +9,18 @@ function enviarAccion() {
             break;
         }
     }
-    if(mensaje.length===0){
+    if (mensaje.length === 0) {
         Swal.fire({
             title: 'Completa el campo del mensaje',
             icon: 'warning'
-          })
-    }else if(clave<1||clave>25){
+        })
+    } else if (clave < 1 || clave > 25) {
         Swal.fire({
             title: 'Recuerda ingresar la clave de cifrado',
             text: 'La clave de cifrado debe ser mayor a 1 y menor a 25',
             icon: 'warning'
-          })
-    }else{
+        })
+    } else {
         cifrarDescifrar(mensaje, accion, clave);
     }
 
@@ -278,10 +278,10 @@ function cifrarDescifrar(mensaje, accion, clave) {
 
 
 function escribirComoMaquina(texto, contenedor, esCifrado) {
-    var velocidadEscritura = 60; 
+    var velocidadEscritura = 60;
     var indice = 0;
     var mensajeTipo = esCifrado ? "El mensaje cifrado es " : "El mensaje descifrado es ";
-    var textoCompleto = mensajeTipo + texto; 
+    var textoCompleto = mensajeTipo + texto;
 
     function escribir() {
         contenedor.textContent += textoCompleto.charAt(indice);
@@ -327,47 +327,77 @@ function filtro(Evento, type) {
         evento.preventDefault();
     }
 }
-
-
 function cifrarDescifrar2(mensaje, accion, clave) {
     var numColumnas = document.getElementById("num_column").value;
-    if (numColumnas > 0) {
-        var longitudMensaje = mensaje.length;
-        var filas = Math.ceil(longitudMensaje / numColumnas);
-        var matriz = new Array(filas);
-        var indice = 0;
+    var longitudMensaje = mensaje.length;
+    var filas = Math.ceil(longitudMensaje / numColumnas);
+    var matriz = new Array(filas);
+    var indice = 0;
 
-        for (var i = 0; i < filas; i++) {
-            matriz[i] = new Array(numColumnas);
-            for (var j = 0; j < numColumnas && indice < longitudMensaje; j++) {
-                matriz[i][j] = mensaje.charAt(indice++);
-            }
+    for (var i = 0; i < filas; i++) {
+        matriz[i] = new Array(numColumnas);
+        for (var j = 0; j < numColumnas && indice < longitudMensaje; j++) {
+            matriz[i][j] = mensaje.charAt(indice++);
         }
-
-        var mensajeCifrado = "";
-        if (accion === "cifrar") {
-            for (var j = 0; j < numColumnas; j++) {
-                for (var i = 0; i < filas; i++) {
-                    if (matriz[i][j]) {
-                        mensajeCifrado += matriz[i][j];
-                    }
-                }
-            }
-        } else if (accion === "descifrar") {
-            for (var i = 0; i < filas; i++) {
-                for (var j = 0; j < numColumnas; j++) {
-                    if (matriz[i][j]) {
-                        mensajeCifrado += matriz[i][j];
-                    }
-                }
-            }
-        }
-
-        var respuestaContainer = document.getElementById("respuesta-container2"); 
-        respuestaContainer.textContent = "";
-        escribirComoMaquina(mensajeCifrado, respuestaContainer, accion === "cifrar");
-        return mensajeCifrado;
     }
+
+    var mensajeCifrado = "";
+    if (accion === "cifrar") {
+        for (var j = 0; j < numColumnas; j++) {
+            for (var i = 0; i < filas; i++) {
+                if (matriz[i][j]) {
+                    mensajeCifrado += matriz[i][j];
+                }
+            }
+        }
+    } else if (accion === "descifrar") {
+        mensajeCifrado = Matriz_a_String(reacomodarMatriz(matriz_rotada(mensaje, numColumnas)));
+    }
+    var respuestaContainer = document.getElementById("respuesta-container2");
+    respuestaContainer.textContent = "";
+    escribirComoMaquina(mensajeCifrado, respuestaContainer, accion === "cifrar");
+    return mensajeCifrado;
+
+}
+function generarMatriz(str, columnSize) {
+    let res = [];
+    let columns = Math.ceil(str.length / columnSize);
+
+    for (let i = 0; i < columns; i++) {
+        let filler = new Array(columnSize).fill(' ');
+        let col = [...str.split('').slice(i * columnSize, i * columnSize + columnSize), ...filler];
+        col = col.slice(0, columnSize);
+        res = [...res, col];
+    }
+
+    return res;
 }
 
+function reacomodarMatriz(matriz) {
+    let res = [];
+
+    for (let i = 0; i < matriz[0].length; i++) {
+        res.push([])
+        for (let l = 0; l < matriz.length; l++) {
+            res[i].push(matriz[l][i])
+        }
+    }
+    return res;
+}
+
+function Matriz_a_String(matriz) {
+    let res = '';
+    for (let i = 0; i < matriz.length; i++) {
+        for (let l = 0; l < matriz[i].length; l++) {
+            res = res + matriz[i][l];
+        }
+    }
+
+    return res;
+}
+
+function matriz_rotada(string, columnas) {
+    let numero_columnas = Math.ceil(string.length / columnas);
+    return generarMatriz(string, numero_columnas);
+}
 
