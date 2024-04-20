@@ -25,6 +25,32 @@ function enviarAccion() {
     }
 
 }
+function enviarAccion2() {
+    var clave = 0;
+    var radios = document.getElementsByName('accion');
+    var mensaje = document.getElementById("mensaje2").value;
+    clave = document.getElementById("num_column").value;
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            var accion = radios[i].value;
+            break;
+        }
+    }
+    if (mensaje.length === 0) {
+        Swal.fire({
+            title: 'Completa el campo del mensaje',
+            icon: 'warning'
+        });
+    } else if (clave < 1 || clave > 25) {
+        Swal.fire({
+            title: 'Recuerda ingresar el número de columnas',
+            text: 'El número de columnas debe ser mayor a 1 y menor a 25',
+            icon: 'warning'
+        });
+    } else {
+        cifrarDescifrar2(mensaje, accion, clave);
+    }
+}
 
 function cifrarDescifrar(mensaje, accion, clave) {
     var clave = document.getElementById("clave_cifrado1").value;
@@ -250,6 +276,7 @@ function cifrarDescifrar(mensaje, accion, clave) {
     }
 }
 
+
 function escribirComoMaquina(texto, contenedor, esCifrado) {
     var velocidadEscritura = 60; 
     var indice = 0;
@@ -266,8 +293,6 @@ function escribirComoMaquina(texto, contenedor, esCifrado) {
 
     escribir();
 }
-
-
 
 function filtro(Evento, type) {
     var numeros = "0123456789";
@@ -302,55 +327,47 @@ function filtro(Evento, type) {
         evento.preventDefault();
     }
 }
-function escribirComoMaquina(texto, contenedor, esCifrado) {
-    var velocidadEscritura = 60; 
-    var indice = 0;
-    var mensajeTipo = esCifrado ? "El mensaje cifrado es " : "El mensaje descifrado es ";
-    var textoCompleto = mensajeTipo + texto; 
 
-    function escribir() {
-        contenedor.textContent += textoCompleto.charAt(indice);
-        indice++;
-        if (indice < textoCompleto.length) {
-            setTimeout(escribir, velocidadEscritura);
+
+function cifrarDescifrar2(mensaje, accion, clave) {
+    var numColumnas = document.getElementById("num_column").value;
+    if (numColumnas > 0) {
+        var longitudMensaje = mensaje.length;
+        var filas = Math.ceil(longitudMensaje / numColumnas);
+        var matriz = new Array(filas);
+        var indice = 0;
+
+        for (var i = 0; i < filas; i++) {
+            matriz[i] = new Array(numColumnas);
+            for (var j = 0; j < numColumnas && indice < longitudMensaje; j++) {
+                matriz[i][j] = mensaje.charAt(indice++);
+            }
         }
-    }
 
-    escribir();
+        var mensajeCifrado = "";
+        if (accion === "cifrar") {
+            for (var j = 0; j < numColumnas; j++) {
+                for (var i = 0; i < filas; i++) {
+                    if (matriz[i][j]) {
+                        mensajeCifrado += matriz[i][j];
+                    }
+                }
+            }
+        } else if (accion === "descifrar") {
+            for (var i = 0; i < filas; i++) {
+                for (var j = 0; j < numColumnas; j++) {
+                    if (matriz[i][j]) {
+                        mensajeCifrado += matriz[i][j];
+                    }
+                }
+            }
+        }
+
+        var respuestaContainer = document.getElementById("respuesta-container2"); 
+        respuestaContainer.textContent = "";
+        escribirComoMaquina(mensajeCifrado, respuestaContainer, accion === "cifrar");
+        return mensajeCifrado;
+    }
 }
 
 
-
-function filtro(Evento, type) {
-    var numeros = "0123456789";
-    var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-    var teclas_especiales = [8, 9, 37, 39, 46];
-
-    var permitidos = "";
-    switch (type) {
-        case 'numeros':
-            permitidos = numeros;
-            break;
-        case 'caracteres':
-            permitidos = caracteres;
-            break;
-
-    }
-    var evento = Evento || window.event;
-    var codigoCaracter = evento.charCode || evento.keyCode;
-    var caracter = String.fromCharCode(codigoCaracter);
-
-
-    var tecla_especial = false;
-    for (var i in teclas_especiales) {
-        if (codigoCaracter == teclas_especiales[i]) {
-            tecla_especial = true;
-            break;
-        }
-    }
-
-
-    if (!(permitidos.indexOf(caracter) != -1 && !tecla_especial)) {
-        evento.preventDefault();
-    }
-}
